@@ -3,15 +3,15 @@ package com.test.binding
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import com.test.binding.databinding.ActivityMainBinding
 import com.test.binding.widget.CustomFrameLayout
 
-class MainActivity : TestActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
     private lateinit var testFragment: TestFragment
     private lateinit var customFrameLayout: CustomFrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
 
         binding.run {
             testTv.text = "Hello World"
