@@ -1,1 +1,3 @@
 # BindingHelper
+
+Activity或Fragment中初始化ViewBinding、DataBinding的便捷方式
