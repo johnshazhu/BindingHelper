@@ -1,0 +1,66 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier "sources"
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            uploadArchives(MavenPublication) {
+                from components.release
+
+                group = "io.github.johnshazhu"
+                artifactId = "binding_helper"
+                version = "1.0.0"
+                artifact(sourceJar)
+                pom {
+                    name = 'lib_binding_helper'
+                    description = 'A helper for ViewBinding and DataBinding'
+                    url = 'https://github.com/johnshazhu/BindingHelper'
+
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'johnshazhu'
+                            name = 'jf.xie'
+                            email = 'breezewarm@163.com'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:https://github.com/johnshazhu/BindingHelper.git'
+                        developerConnection = 'scm:git:git@github.com:johnshazhu/BindingHelper.git'
+                        url = 'https://github.com/johnshazhu/BindingHelper'
+                    }
+                }
+            }
+        }
+        repositories {
+            maven {
+                name = "localRepo"
+                url = uri("./repo")
+            }
+
+            maven {
+                name = "ossrh"
+                allowInsecureProtocol true
+                url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+                credentials {
+                    username = ossrhUsername
+                    password = ossrhPassword
+                }
+            }
+        }
+    }
+
+    signing {
+        sign publishing.publications.uploadArchives
+    }
+}
