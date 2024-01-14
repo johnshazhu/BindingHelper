@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
+import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
@@ -73,15 +74,22 @@ fun <T : ViewBinding> getBinding(
     val start = System.currentTimeMillis()
     val method = getBindingInflateMethod(instance, isInstanceInterface)
     val mid = System.currentTimeMillis()
-    val binding = method?.invoke(null, inflater, parent, attachToParent)
-    val end = System.currentTimeMillis()
+    runCatching {
+        val binding = method?.invoke(null, inflater, parent, attachToParent)
+        val end = System.currentTimeMillis()
 
-    if (binding is ViewBinding) {
-        if (showTimeLog) {
-            Log.i("xdebug", "$binding ${method.name} found cost = ${mid - start}ms, execute cost = ${end - mid}ms")
+        if (binding is ViewBinding) {
+            if (showTimeLog) {
+                Log.i("xdebug", "$binding ${method.name} found cost = ${mid - start}ms, execute cost = ${end - mid}ms")
+            }
+            return binding as T
         }
-        return binding as T
+    }.onFailure {
+        if (it is InvocationTargetException) {
+            throw it.targetException
+        }
     }
+
     throw InvalidParameterException("invalid parameter")
 }
 
