@@ -14,7 +14,7 @@ afterEvaluate {
 
                 group = "io.github.johnshazhu"
                 artifactId = "binding_helper"
-                version = "1.0.0"
+                version = "1.0.2"
                 artifact(sourceJar)
                 pom {
                     name = 'lib_binding_helper'

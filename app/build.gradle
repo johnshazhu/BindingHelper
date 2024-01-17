@@ -49,5 +49,5 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.5.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    implementation("io.github.johnshazhu:binding_helper:1.0.0")
+    implementation("io.github.johnshazhu:binding_helper:1.0.2")
 }

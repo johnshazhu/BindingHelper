@@ -61,9 +61,9 @@ fun clearMethodMap() {
  * @param parent
  * @param attachToParent
  * @param isInstanceInterface
- * @return T 返回 Binding实例，反射方法获取失败时抛出InvalidParameterException异常
+ * @return T 返回 Binding实例, 失败时抛出异常
  */
-@Throws(InvalidParameterException::class)
+@Suppress("UNCHECKED_CAST")
 fun <T : ViewBinding> getBinding(
     instance: Any,
     inflater: LayoutInflater,
@@ -90,7 +90,7 @@ fun <T : ViewBinding> getBinding(
         }
     }
 
-    throw InvalidParameterException("invalid parameter")
+    throw RuntimeException("UnexpectedReachCode")
 }
 
 /**
