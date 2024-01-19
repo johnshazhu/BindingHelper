@@ -310,7 +310,7 @@ launch(CoroutineName("Name2") + Job()) { ... }
 
 查找CoroutineContext中的元素
 
-    既然CoroutineContext像一个集合，那么我们可以通过get或[]用一个具体的key来查找一个元素。像map中一样，当element
+既然CoroutineContext像一个集合，那么我们可以通过get或[]用一个具体的key来查找一个元素。像map中一样，当element
 在context中时，就返回element，不在的话则返回null。
 ```
 fun main() {
@@ -341,8 +341,7 @@ Key可以指向类（CoroutineName）或接口（Job）。
 
 添加contexts
 
-    CoroutineContext真正有用的能力是合并两个CoroutineContext到一起。当两个不同Key的元素被添加后，生成的上下文
-对两个Key都有响应。
+CoroutineContext真正有用的能力是合并两个CoroutineContext到一起。当两个不同Key的元素被添加后，生成的上下文对两个Key都有响应。
 ```
 fun main() {
     val ctx1: CoroutineContext = CoroutineName("Name1")
@@ -425,9 +424,11 @@ Kotlin协程库提供的一个重要功能就是让我们决定协程在哪个�
 默认分发器（Default Dispatcher）
 
     设计是用于CPU密集计算操作的。它有一个线程池，大小为代码运行的机器上的核数。
-limitedParallelism---限制默认分发器同一个线程下并行执行数
+    
+    limitedParallelism---限制默认分发器同一个线程下并行执行数
 
 IO分发器
+
     设计用于因IO操作阻塞线程时。IO分发器允许同时超过50个线程运行。
     
 默认分发器和IO分发器共享同一个线程池。线程被复用，通常不需要再重新分发。例如，现在运行在Default Dispatcher上，然后
